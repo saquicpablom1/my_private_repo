@@ -5,12 +5,17 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'java -version'
                 sh 'mvn clean package'
             }
         }
 
-        stage('Archive Artifact') {
+        stage('Run') {
+            steps {
+                sh 'java -cp target/classes App'
+            }
+        }
+
+        stage('Archive') {
             steps {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
